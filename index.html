@@ -204,14 +204,14 @@
 
   document.addEventListener("message", function (data) {
     setMap(JSON.parse(data.data).todayList);
-
+    myGeolocation();
    this.removeEventListener('message')
   });
 
-  setMap(positions);
+  // setMap(positions);
 
   // 배송기사 현재 위치 알아내는 함수실행
-  myGeolocation();
+  // myGeolocation();
 
   //마커생성 함수
   function setMap(positions) {
@@ -270,13 +270,13 @@
   }
   // 내위치 알아내기
   function myGeolocation() {
-    console.log('실행')
+    
     // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
     if (navigator.geolocation) {
       
       // GeoLocation을 이용해서 접속 위치를 얻어옵니다
       navigator.geolocation.getCurrentPosition(function (position) {
-        alert(position)
+  
         var lat = position.coords.latitude, // 위도
           lon = position.coords.longitude; // 경도
 
