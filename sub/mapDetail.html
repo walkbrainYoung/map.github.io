@@ -189,6 +189,11 @@
         this.removeEventListener("message");
       });
 
+      window.addEventListener("message", function (data) {
+        setMap(JSON.parse(data.data).deliveryInfo);
+
+        this.removeEventListener("message");
+      });
       // setMap(positions);
 
       // 배송기사 현재 위치 알아내는 함수실행
