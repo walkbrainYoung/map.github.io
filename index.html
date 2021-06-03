@@ -218,7 +218,7 @@
   var bounds = new kakao.maps.LatLngBounds();
 
   document.addEventListener("message", function (data) {
-    myGeolocation();
+    // myGeolocation();
     setMap(JSON.parse(data.data).todayList);
    this.removeEventListener('message')
   });
