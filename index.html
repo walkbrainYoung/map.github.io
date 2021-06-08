@@ -71,12 +71,12 @@
           <p>선택한 배송건</p>
         </div>
       </div> -->
-      <div class="myGeo refresh">
+      <!-- <div class="myGeo refresh">
         <a onclick="refreshData()"><img src="./img/reload.svg" /></a>
       </div>
       <div class="myGeo">
         <a onclick="myGeolocation()"><img src="./img/locate.svg" /></a>
-      </div>
+      </div> -->
     </div>
 
     <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
@@ -399,7 +399,6 @@
       var bounds = new kakao.maps.LatLngBounds();
 
       document.addEventListener("message", function (data) {
-        // myGeolocation(); 주석처리제거
         const newData = JSON.parse(data.data);
 
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
@@ -408,8 +407,10 @@
       });
 
       window.addEventListener("message", function (data) {
-        myGeolocation();
-        setMap(JSON.parse(data.data).todayList);
+        const newData = JSON.parse(data.data);
+
+        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+        setMap(newData.todayList);
         this.removeEventListener("message");
       });
 
@@ -467,7 +468,6 @@
             map.setLevel(level, { anchor: cluster.getCenter() });
           }
         );
-
       }
       // 내위치 알아내기
       function myGeolocation(position) {
@@ -482,6 +482,8 @@
           position: locPosition,
           content: content,
         });
+
+        bounds.extend(locPosition)
 
         // 커스텀 오버레이를 지도에 표시합니다
         customOverlay.setMap(map);
@@ -502,6 +504,7 @@
 
         // 커스텀 오버레이를 지도에 표시합니다
         customOverlay.setMap(map);
+        
         // 지도 중심좌표를 접속위치로 변경합니다
         map.setCenter(locPosition);
       }
