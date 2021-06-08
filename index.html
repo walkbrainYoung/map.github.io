@@ -401,8 +401,8 @@
       document.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
 
-        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         setMap(newData.todayList);
+        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         this.removeEventListener("message");
       });
 
