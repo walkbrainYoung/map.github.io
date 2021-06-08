@@ -402,8 +402,8 @@
         // myGeolocation(); 주석처리제거
         const newData = JSON.parse(data.data);
 
-        setMap(newData.todayList);
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+        setMap(newData.todayList);
         this.removeEventListener("message");
       });
 
