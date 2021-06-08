@@ -37,7 +37,7 @@
         width: 35px;
         height: 35px;
         border-radius: 5px;
-        background: rgb(245, 245, 245);
+        background: red;
         /* background: red; */
         box-shadow: 0px 0px 2px 2px rgb(212, 212, 212);
       }
@@ -135,47 +135,53 @@
         averageCenter: true, // 클러스터에 포함된 마커들의 평균 위치를 클러스터 마커 위치로 설정
         minLevel: 5, // 클러스터 할 최소 지도 레벨
         disableClickZoom: true, // 클러스터 마커를 클릭했을 때 지도가 확대되지 않도록 설정한다
-        styles: [{ // calculator 각 사이 값 마다 적용될 스타일을 지정한다
-                width : '30px', height : '30px',
-                background: 'rgba(92, 218, 200, .8)',
-                borderRadius: '15px',
-                color: '#000',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                lineHeight: '31px',
-                boxShadow: '0px 0px 5px 5px rgba(92, 218, 200, .3)'
-            },
-            {
-                width : '40px', height : '40px',
-                background: 'rgba(32, 170, 151, .8)',
-                borderRadius: '20px',
-                color: '#000',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                lineHeight: '41px',
-                boxShadow: '0px 0px 2px 2px rgba(32, 170, 151, .3)'
-            },
-            {
-                width : '50px', height : '50px',
-                background: 'rgba(37, 89, 81, .8)',
-                borderRadius: '25px',
-                color: '#000',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                lineHeight: '51px',
-                boxShadow: '0px 0px 2px 2px rgba(37, 89, 81, .3)'
-            },
-            {
-                width : '60px', height : '60px',
-                background: 'rgba(16, 142, 233, .8)',
-                borderRadius: '30px',
-                color: '#000',
-                textAlign: 'center',
-                fontWeight: 'bold',
-                lineHeight: '61px',
-                boxShadow: '0px 0px 2px 2px rgba(16, 142, 233, .8)'
-            }
-        ]
+        styles: [
+          {
+            // calculator 각 사이 값 마다 적용될 스타일을 지정한다
+            width: "30px",
+            height: "30px",
+            background: "rgba(92, 218, 200, .8)",
+            borderRadius: "15px",
+            color: "#000",
+            textAlign: "center",
+            fontWeight: "bold",
+            lineHeight: "31px",
+            boxShadow: "0px 0px 5px 5px rgba(92, 218, 200, .3)",
+          },
+          {
+            width: "40px",
+            height: "40px",
+            background: "rgba(32, 170, 151, .8)",
+            borderRadius: "20px",
+            color: "#000",
+            textAlign: "center",
+            fontWeight: "bold",
+            lineHeight: "41px",
+            boxShadow: "0px 0px 2px 2px rgba(32, 170, 151, .3)",
+          },
+          {
+            width: "50px",
+            height: "50px",
+            background: "rgba(37, 89, 81, .8)",
+            borderRadius: "25px",
+            color: "#000",
+            textAlign: "center",
+            fontWeight: "bold",
+            lineHeight: "51px",
+            boxShadow: "0px 0px 2px 2px rgba(37, 89, 81, .3)",
+          },
+          {
+            width: "60px",
+            height: "60px",
+            background: "rgba(16, 142, 233, .8)",
+            borderRadius: "30px",
+            color: "#000",
+            textAlign: "center",
+            fontWeight: "bold",
+            lineHeight: "61px",
+            boxShadow: "0px 0px 2px 2px rgba(16, 142, 233, .8)",
+          },
+        ],
       });
       // 마커를 표시할 위치와 title 객체 배열입니다
       // const positions = [
@@ -394,15 +400,17 @@
 
       document.addEventListener("message", function (data) {
         // myGeolocation(); 주석처리제거
-        setMap(JSON.parse(data.data).todayList);
-        alert(JSON.stringify(JSON.parse(data.data).position))
-       this.removeEventListener('message')
+        const data = JSON.parse(data.data);
+
+        setMap(data.todayList);
+        if (data.position?.latitude !== 0) myGeolocation(data.position);
+        this.removeEventListener("message");
       });
 
       window.addEventListener("message", function (data) {
         myGeolocation();
         setMap(JSON.parse(data.data).todayList);
-       this.removeEventListener('message')
+        this.removeEventListener("message");
       });
 
       // setMap(positions);
@@ -433,8 +441,8 @@
           });
           // 클릭이벤트 추가
           kakao.maps.event.addListener(marker, "click", function () {
-            if(window.ReactNativeWebView)
-            window.ReactNativeWebView.postMessage(delivery_id);
+            if (window.ReactNativeWebView)
+              window.ReactNativeWebView.postMessage(delivery_id);
             else console.log("실행 " + delivery_id);
           });
 
@@ -460,47 +468,25 @@
           }
         );
 
-        // $(positions).map(function (i, position) {
-        //   var coords = new kakao.maps.LatLng(
-        //     position.latitude,
-        //     position.longtitude
-        //   );
-        //   // 결과값으로 받은 위치를 마커로 표시합니다
-        //   var marker = new kakao.maps.Marker({
-        //     map: map,
-        //     position: coords,
-        //     image: MAKER_DEFAULT_IMG,
-        //   });
-
-        //   bounds.extend(coords);
-
-        //   kakao.maps.event.addListener(marker, "click", function () {
-        //   console.log("실행");
-        // });
-        // });
       }
       // 내위치 알아내기
-      function myGeolocation() {
-        // HTML5의 geolocation으로 사용할 수 있는지 확인합니다
-        if (navigator.geolocation) {
-          // GeoLocation을 이용해서 접속 위치를 얻어옵니다
-          navigator.geolocation.getCurrentPosition(function (position) {
-            var lat = position.coords.latitude, // 위도
-              lon = position.coords.longitude; // 경도
+      function myGeolocation(position) {
+        var lat = position.latitude, // 위도
+          lon = position.longitude; // 경도
 
-            var locPosition = new kakao.maps.LatLng(lat, lon), // 마커가 표시될 위치를 geolocation으로 얻어온 좌표로 생성합니다
-              message = '<div style="padding:5px;">여기에 계신가요?!</div>'; // 인포윈도우에 표시될 내용입니다
+        var locPosition = new kakao.maps.LatLng(lat, lon);
+        var content =
+          '<div style="width:12px; height:12px; border-radius:100%; background:#108ee9; border:2px solid white; box-shadow: 0px 0px 2px 2px rgba(16,142,233,0.4)"></div>';
 
-            // 마커와 인포윈도우를 표시합니다
-            displayMarker(locPosition, message);
-          });
-        } else {
-          // HTML5의 GeoLocation을 사용할 수 없을때 마커 표시 위치와 인포윈도우 내용을 설정합니다
-          var locPosition = new kakao.maps.LatLng(33.450701, 126.570667),
-            message = "geolocation을 사용할수 없어요..";
+        var customOverlay = new kakao.maps.CustomOverlay({
+          position: locPosition,
+          content: content,
+        });
 
-          displayMarker(locPosition, message);
-        }
+        // 커스텀 오버레이를 지도에 표시합니다
+        customOverlay.setMap(map);
+        // 지도 중심좌표를 접속위치로 변경합니다
+        map.setCenter(locPosition);
       }
 
       // 내위치 마커 생성
