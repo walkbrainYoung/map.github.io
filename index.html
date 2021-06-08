@@ -395,6 +395,7 @@
       document.addEventListener("message", function (data) {
         // myGeolocation(); 주석처리제거
         setMap(JSON.parse(data.data).todayList);
+        alert(JSON.parse(data.data).position)
        this.removeEventListener('message')
       });
 
