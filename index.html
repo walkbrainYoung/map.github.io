@@ -400,7 +400,7 @@
 
       document.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
-
+alert('실행');
         setMap(newData.todayList);
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         this.removeEventListener("message");
@@ -408,9 +408,9 @@
 
       window.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
-
-        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+        alert('실행');
         setMap(newData.todayList);
+        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         this.removeEventListener("message");
       });
 
@@ -483,7 +483,7 @@
           content: content,
         });
 
-        bounds.extend(locPosition)
+        bounds.extend(locPosition);
 
         // 커스텀 오버레이를 지도에 표시합니다
         customOverlay.setMap(map);
@@ -504,17 +504,12 @@
 
         // 커스텀 오버레이를 지도에 표시합니다
         customOverlay.setMap(map);
-        
+
         // 지도 중심좌표를 접속위치로 변경합니다
         map.setCenter(locPosition);
       }
 
-      // 리스트 새로고칭
-      function refreshData() {
-        window.ReactNativeWebView.postMessage(
-          JSON.stringify({ refresh: true })
-        );
-      }
+      
     </script>
   </body>
 </html>
