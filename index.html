@@ -400,7 +400,7 @@
 
       document.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
-alert('실행');
+
         setMap(newData.todayList);
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         this.removeEventListener("message");
@@ -408,7 +408,7 @@ alert('실행');
 
       window.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
-        alert('실행');
+        
         setMap(newData.todayList);
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
         this.removeEventListener("message");
