@@ -20,15 +20,13 @@
         background-color: slateblue;
       }
 
-      .deliveryBox div,
-      .pickUpBox div {
-        display: flex;
-      }
+     
 
       .deliveryBox span,
       .pickUpBox span{
-        text-decoration: none;
-     
+      text-decoration: none;
+      text-align: center;
+      line-height: 30px;
         font-size: 12px;
         color: white;
       }
@@ -105,7 +103,7 @@
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "31px",
+            lineHeight: "41px",
             boxShadow: "0px 0px 5px 5px rgba(92, 218, 200, .3)",
           },
           {
@@ -116,7 +114,7 @@
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "41px",
+            lineHeight: "51px",
             boxShadow: "0px 0px 2px 2px rgba(32, 170, 151, .3)",
           },
           {
@@ -127,7 +125,7 @@
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "51px",
+            lineHeight: "61px",
             boxShadow: "0px 0px 2px 2px rgba(37, 89, 81, .3)",
           },
           {
@@ -399,7 +397,7 @@
         // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
         var markers = $(positions).map(function (i, position) {
           const delivery_id = positions[i]?.id; // 딜리버리 아이디 생성
-          var content = `<a class=${position.type==="01"?"deliveryBox":"pickUpBox"}><div><span href="javascript:void(0);" onClick="onClick(${delivery_id})">${positions[i].children?.length}</span></div></a>`;
+          var content = `<a class=${position.type==="01"?"deliveryBox":"pickUpBox"}><span href="javascript:void(0);" onClick="onClick(${delivery_id})">${positions[i].children?.length}</span></a>`;
           var coords = new kakao.maps.LatLng(
             position.latitude,
             position.longtitude
