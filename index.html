@@ -14,14 +14,14 @@
         display: flex;
         justify-content: center;
         align-items: center;
+        text-decoration: none;
       }
       .pickUpBox{
-        background-color: yellowgreen;
+        background-color: blueviolet;
       }
 
-      .deliveryBox a,
-      .pickUpBox a{
-        background-color: blueviolet;
+      .deliveryBox span,
+      .pickUpBox span{
         text-decoration: none;
         display: block;
         font-size: 12px;
@@ -394,7 +394,7 @@
         // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
         var markers = $(positions).map(function (i, position) {
           const delivery_id = positions[i]?.id; // 딜리버리 아이디 생성
-          var content = `<div class=${position.type==="01"?"deliveryBox":"pickUpBox"}><a href="javascript:void(0);" onClick="onClick(${delivery_id})">${positions[i].children?.length}</a></div>`;
+          var content = `<a class=${position.type==="01"?"deliveryBox":"pickUpBox"}><span href="javascript:void(0);" onClick="onClick(${delivery_id})">${positions[i].children?.length}</span></a>`;
           var coords = new kakao.maps.LatLng(
             position.latitude,
             position.longtitude
