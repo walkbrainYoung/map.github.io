@@ -16,7 +16,7 @@
         align-items: center;
       }
       .pickUpBox{
-        background-color: blue;
+        background-color: midnightblue;
       }
 
       .deliveryBox a,
@@ -410,11 +410,11 @@
               content: content,
           });
           // 클릭이벤트 추가
-          kakao.maps.event.addListener(customOverlay, "click", function () {
-            if (window.ReactNativeWebView)
-              window.ReactNativeWebView.postMessage(delivery_id);
-            else console.log("실행 " + delivery_id);
-          });
+          // kakao.maps.event.addListener(customOverlay, "click", function () {
+          //   if (window.ReactNativeWebView)
+          //     window.ReactNativeWebView.postMessage(delivery_id);
+          //   else console.log("실행 " + delivery_id);
+          // });
 
           bounds.extend(coords);
           // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
