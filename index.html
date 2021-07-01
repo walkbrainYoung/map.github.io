@@ -361,23 +361,22 @@
       // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
       var bounds = new kakao.maps.LatLngBounds();
 
-      // document.addEventListener("message", function (data) {
-      //   const newData = JSON.parse(data.data);
+      document.addEventListener("message", function (data) {
+        const newData = JSON.parse(data.data);
 
-      //   setMap(newData.todayList);
-      //   if (newData.position?.latitude !== 0) myGeolocation(newData.position);
-      //   this.removeEventListener("message");
-      // });
+        setMap(newData.todayList);
+        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+        this.removeEventListener("message");
+      });
 
-      // window.addEventListener("message", function (data) {
-      //   const newData = JSON.parse(data.data);
-        
-      //   setMap(newData.todayList);
-      //   if (newData.position?.latitude !== 0) myGeolocation(newData.position);
-      //   this.removeEventListener("message");
-      // });
+      window.addEventListener("message", function (data) {
+        const newData = JSON.parse(data.data);
+        setMap(newData.todayList);
+        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+        this.removeEventListener("message");
+      });
 
-      setMap(positions);
+      // setMap(positions);
 
       // 배송기사 현재 위치 알아내는 함수실행
       // myGeolocation();
