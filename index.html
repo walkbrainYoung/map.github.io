@@ -6,12 +6,13 @@
     <title>배송장소 표시</title>
     <style type="text/css">
       .deliveryBox,
-      .pickUpBox {
+      .pickUpBox,
+      .allBox {
         background-color: salmon;
         width: 25px;
         height: 25px;
         line-height: 25px;
-        border-radius: 100%;
+        border-radius: 5px;
         display: block;
         justify-content: center;
         align-items: center;
@@ -20,17 +21,16 @@
         font-size: 12px;
         color: white;
       }
-      .pickUpBox{
+      .pickUpBox {
         background-color: yellowgreen;
       }
-
-     
+      .allBox {
+        background-color: slateblue;
+      }
     </style>
   </head>
   <body style="margin: 0">
-    <div id="map" style="width: 100vw; height: 100vh">
-     
-    </div>
+    <div id="map" style="width: 100vw; height: 100vh"></div>
 
     <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
     <!-- <script
@@ -392,7 +392,15 @@
         // 마커 클러스터러로 관리할 마커 객체는 생성할 때 지도 객체를 설정하지 않습니다
         var markers = $(positions).map(function (i, position) {
           const delivery_id = positions[i]?.id; // 딜리버리 아이디 생성
-          var content = `<a class=${position.type==="01"?"deliveryBox":"pickUpBox"} href="javascript:void(0);" onClick="onClick(${delivery_id})">${positions[i].children?.length}</a>`;
+          var content = `<a class=${
+            position.type === "03"
+              ? "allBox"
+              : position.type === "01"
+              ? "deliveryBox"
+              : "pickUpBox"
+          } href="javascript:void(0);" onClick="onClick(${delivery_id})">${
+            positions[i].children?.length
+          }</a>`;
           var coords = new kakao.maps.LatLng(
             position.latitude,
             position.longtitude
@@ -404,9 +412,9 @@
           // });
           // 커스텀 오버레이를 생성합니다
           var customOverlay = new kakao.maps.CustomOverlay({
-              map: map,
-              position: coords,
-              content: content,
+            map: map,
+            position: coords,
+            content: content,
           });
           // 클릭이벤트 추가
           // kakao.maps.event.addListener(customOverlay, "click", function () {
@@ -478,11 +486,11 @@
       }
 
       // 클릭 이벤트 발생
-       function onClick (delivery_id) {
-            if (window.ReactNativeWebView)
-              window.ReactNativeWebView.postMessage(delivery_id);
-            else console.log("실행 " + delivery_id);
-        }
+      function onClick(delivery_id) {
+        if (window.ReactNativeWebView)
+          window.ReactNativeWebView.postMessage(delivery_id);
+        else console.log("실행 " + delivery_id);
+      }
     </script>
   </body>
 </html>
