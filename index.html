@@ -27,10 +27,65 @@
       .allBox {
         background: url("./img/marker_all.svg");
       }
+
+      .pinWrap {
+        position: absolute;
+        bottom: 5px;
+        right: 0;
+        display: flex;
+        z-index: 999;
+        justify-content: space-between;
+        background-color: rgba(233, 233, 233, 0.7);
+        height: 30px;
+        padding:0 12px 0 4px;
+      }
+      .pinWrap > div {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 60px;
+      }
+      .pinWrap > div:nth-child(3){
+        width: 80px;
+      }
+
+      .pinWrap > div > div {
+        width: 10px;
+        height: 10px;
+        padding: 0;
+        background: #ee6252;
+        border-radius: 100%;
+        margin-right: 4px;
+      }
+      .pinWrap > div > div.pin_retreive {
+        background-color: #059fc8;
+      }
+      .pinWrap > div > div.pin_all {
+        background-color: #000000;
+      }
+      .pinWrap > div > p {
+        padding: 0;
+        font-size: 14px;
+      }
     </style>
   </head>
   <body style="margin: 0">
-    <div id="map" style="width: 100vw; height: 100vh"></div>
+    <div id="map" style="width: 100vw; height: 100vh">
+      <div class="pinWrap">
+        <div>
+          <div class="pin_delivery"></div>
+          <p>배송</p>
+        </div>
+        <div>
+          <div class="pin_retreive"></div>
+          <p>수거</p>
+        </div>
+        <div>
+          <div class="pin_all"></div>
+          <p>배송/수거</p>
+        </div>
+      </div>
+    </div>
 
     <script src="https://code.jquery.com/jquery-2.2.1.js"></script>
     <!-- <script
@@ -42,8 +97,6 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=16684e5f789d589238bd0290a36f1c75&libraries=services,clusterer"
     ></script>
     <script>
-     
-
       var selectedMarker = null;
       var saveComplete = null;
 
