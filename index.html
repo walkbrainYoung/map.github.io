@@ -8,24 +8,24 @@
       .deliveryBox,
       .pickUpBox,
       .allBox {
-        background-color: salmon;
-        width: 25px;
-        height: 25px;
-        line-height: 25px;
+        width: 50px;
+        height: 55px;
+        line-height: 45px;
         border-radius: 5px;
         display: block;
         justify-content: center;
         align-items: center;
         text-decoration: none;
         text-align: center;
-        font-size: 12px;
+        font-size: 16px;
         color: white;
+        background: url("./img/marker_delivery.svg");
       }
       .pickUpBox {
-        background-color: yellowgreen;
+        background: url("./img/marker_retrieve.svg");
       }
       .allBox {
-        background-color: slateblue;
+        background: url("./img/marker_all.svg");
       }
     </style>
   </head>
@@ -42,32 +42,7 @@
       src="//dapi.kakao.com/v2/maps/sdk.js?appkey=16684e5f789d589238bd0290a36f1c75&libraries=services,clusterer"
     ></script>
     <script>
-      //기본 단위 설정
-      var MARKER_WIDTH = 35,
-        MARKER_HEIGHT = 32,
-        SELECT_MARKER_WIDTH = 45,
-        SELECT_MARKER_HEIGHT = 42,
-        MARKER_DEFAULT_URL = "./img/marker_Incomplete.png",
-        MARKER_COMPLETE_URL = "./img/marker_complete.png",
-        MARKER_SELECT_URL = "./img/marker_select.png";
-      // 마커설정
-      var IMAGE_SIZE = new kakao.maps.Size(MARKER_WIDTH, MARKER_HEIGHT), // 이미지 사이즈
-        SELECT_IMAGE_SIZE = new kakao.maps.Size(
-          SELECT_MARKER_WIDTH,
-          SELECT_MARKER_HEIGHT
-        ), //선택한 이미지 사이즈
-        MAKER_DEFAULT_IMG = new kakao.maps.MarkerImage(
-          MARKER_DEFAULT_URL,
-          IMAGE_SIZE
-        ), //미완료 배송 이미지 생성
-        MAKER_COMPLETE_IMG = new kakao.maps.MarkerImage(
-          MARKER_COMPLETE_URL,
-          IMAGE_SIZE
-        ), // 완료 배송 이미지
-        MARKER_SELECT_IMG = new kakao.maps.MarkerImage(
-          MARKER_SELECT_URL,
-          SELECT_IMAGE_SIZE
-        ); //선택한 배송 이미지
+     
 
       var selectedMarker = null;
       var saveComplete = null;
@@ -91,291 +66,291 @@
         styles: [
           {
             // calculator 각 사이 값 마다 적용될 스타일을 지정한다
-            width: "30px",
-            height: "30px",
+            width: "50px",
+            height: "50px",
             background: "rgba(92, 218, 200, .8)",
-            borderRadius: "15px",
+            borderRadius: "100%",
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "31px",
+            lineHeight: "50px",
             boxShadow: "0px 0px 5px 5px rgba(92, 218, 200, .3)",
           },
           {
-            width: "40px",
-            height: "40px",
+            width: "60px",
+            height: "60px",
             background: "rgba(32, 170, 151, .8)",
-            borderRadius: "20px",
+            borderRadius: "100%",
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "41px",
+            lineHeight: "60px",
             boxShadow: "0px 0px 2px 2px rgba(32, 170, 151, .3)",
           },
           {
-            width: "50px",
-            height: "50px",
+            width: "70px",
+            height: "70px",
             background: "rgba(37, 89, 81, .8)",
-            borderRadius: "25px",
+            borderRadius: "100%",
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "51px",
+            lineHeight: "70px",
             boxShadow: "0px 0px 2px 2px rgba(37, 89, 81, .3)",
           },
           {
-            width: "50px",
-            height: "50px",
+            width: "70px",
+            height: "70px",
             background: "rgba(16, 142, 233, .8)",
-            borderRadius: "25px",
+            borderRadius: "100%",
             color: "#000",
             textAlign: "center",
             fontWeight: "bold",
-            lineHeight: "51px",
+            lineHeight: "70px",
             boxShadow: "0px 0px 2px 2px rgba(16, 142, 233, .8)",
           },
         ],
       });
       // 마커를 표시할 위치와 title 객체 배열입니다
-      // const positions = [
-      //   {
-      //     id: 1,
-      //     address: "서울 성동구 뚝섬로 325-19",
-      //     complete: false,
-      //     type:'01',
-      //     delivery_type: "01",
-      //     name: "한영관",
-      //     memo: "",
-      //     latitude: "37.541277",
-      //     longtitude: "127.047261",
-      //     children: [
-      //       {
-      //         id: 1,
-      //         address: "서울 성동구 뚝섬로 325-19",
-      //         complete: false,
-      //         delivery_type: "01",
-      //         name: "한영관",
-      //         memo: "",
-      //         latitude: "37.541277",
-      //         longtitude: "127.047261",
-      //       },
-      //       {
-      //         id: 2,
-      //         address: "서울 성동구 광나루로4가길 5 1층",
-      //         complete: true,
-      //         delivery_type: "03",
-      //         name: "천우희",
-      //         memo: "",
-      //         latitude: "37.541294",
-      //         longtitude: "127.047230",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 3,
-      //     address: "서울 성동구 서울숲2길 16-8",
-      //     complete: false,
-      //     delivery_type: "01",
-      //     type:'01',
-      //     name: "서현진",
-      //     memo: "아기가 있어요 조용히 방문해주세요",
-      //     latitude: "37.5469895",
-      //     longtitude: "127.0380294",
-      //     children: [
-      //       {
-      //         id: 3,
-      //         address: "서울 성동구 서울숲2길 16-8",
-      //         complete: false,
-      //         delivery_type: "01",
-      //         name: "서현진",
-      //         memo: "아기가 있어요 조용히 방문해주세요",
-      //         latitude: "37.5469895",
-      //         longtitude: "127.0380294",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 4,
-      //     address: "서울 성동구 서울숲2길 44-13 1층",
-      //     complete: false,
-      //     delivery_type: "02",
-      //     type:'01',
-      //     name: "박보영",
-      //     memo: "어쩌구 저쩌구",
-      //     latitude: "37.5460426",
-      //     longtitude: "127.041149",
-      //     children: [
-      //       {
-      //         id: 4,
-      //         address: "서울 성동구 서울숲2길 44-13 1층",
-      //         complete: false,
-      //         delivery_type: "02",
-      //         name: "박보영",
-      //         memo: "어쩌구 저쩌구",
-      //         latitude: "37.5460426",
-      //         longtitude: "127.041149",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 5,
-      //     address: "서울 성동구 성수이로7가길 13 1층",
-      //     complete: true,
-      //     delivery_type: "03",
-      //     type:'02',
-      //     name: "한소희",
-      //     memo: "",
-      //     latitude: "37.5414092",
-      //     longtitude: "127.0528612",
-      //     children: [
-      //       {
-      //         id: 5,
-      //         address: "서울 성동구 성수이로7가길 13 1층",
-      //         complete: true,
-      //         delivery_type: "03",
-      //         name: "한소희",
-      //         memo: "",
-      //         latitude: "37.5414092",
-      //         longtitude: "127.0528612",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 6,
-      //     address: "서울 성동구 서울숲2길 40 2층 비스트로성수",
-      //     complete: false,
-      //     delivery_type: "02",
-      //     type:'01',
-      //     name: "배수지",
-      //     memo: "현관 비밀번호 ****이에요",
-      //     latitude: "37.5463357",
-      //     longtitude: "127.0408389",
-      //     children: [
-      //       {
-      //         id: 6,
-      //         address: "서울 성동구 서울숲2길 40 2층 비스트로성수",
-      //         complete: false,
-      //         delivery_type: "02",
-      //         name: "배수지",
-      //         memo: "현관 비밀번호 ****이에요",
-      //         latitude: "37.5463357",
-      //         longtitude: "127.0408389",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 7,
-      //     address: "서울 성동구 뚝섬로9길 20 2층",
-      //     complete: false,
-      //     delivery_type: "01",
-      //     type:'01',
-      //     name: "고윤정",
-      //     memo: "",
-      //     latitude: "37.5398975",
-      //     longtitude: "127.0540246",
-      //     children: [
-      //       {
-      //         id: 7,
-      //         address: "서울 성동구 뚝섬로9길 20 2층",
-      //         complete: false,
-      //         delivery_type: "01",
-      //         name: "고윤정",
-      //         memo: "",
-      //         latitude: "37.5398975",
-      //         longtitude: "127.0540246",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 8,
-      //     address: "서울 성동구 서울숲4길 18-8 지층",
-      //     complete: true,
-      //     delivery_type: "03",
-      //     type:'02',
-      //     name: "혜리",
-      //     memo: "잘 놓고 가주세요~",
-      //     latitude: "37.5470041",
-      //     longtitude: "127.0404734",
-      //     children: [
-      //       {
-      //         id: 8,
-      //         address: "서울 성동구 서울숲4길 18-8 지층",
-      //         complete: true,
-      //         delivery_type: "03",
-      //         name: "혜리",
-      //         memo: "잘 놓고 가주세요~",
-      //         latitude: "37.5470041",
-      //         longtitude: "127.0404734",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 9,
-      //     address: "서울 성동구 아차산로7길 7 동진빌딩 1층 성수족발",
-      //     complete: false,
-      //     delivery_type: "01",
-      //     type:'01',
-      //     name: "전소민",
-      //     memo: "요요요요",
-      //     latitude: "37.5460109",
-      //     longtitude: "127.052102",
-      //     children: [
-      //       {
-      //         id: 9,
-      //         address: "서울 성동구 아차산로7길 7 동진빌딩 1층 성수족발",
-      //         complete: false,
-      //         delivery_type: "01",
-      //         name: "전소민",
-      //         memo: "요요요요",
-      //         latitude: "37.5460109",
-      //         longtitude: "127.052102",
-      //       },
-      //     ],
-      //   },
-      //   {
-      //     id: 10,
-      //     address: "서울 성동구 서울숲4길 27",
-      //     complete: true,
-      //     delivery_type: "03",
-      //     type:'02',
-      //     name: "아이유",
-      //     memo: "",
-      //     latitude: "37.5470143",
-      //     longtitude: "127.0418555",
-      //     children: [
-      //       {
-      //         id: 10,
-      //         address: "서울 성동구 서울숲4길 27",
-      //         complete: true,
-      //         delivery_type: "03",
-      //         name: "아이유",
-      //         memo: "",
-      //         latitude: "37.5470143",
-      //         longtitude: "127.0418555",
-      //       },
-      //     ],
-      //   },
-      // ];
+      const positions = [
+        {
+          id: 1,
+          address: "서울 성동구 뚝섬로 325-19",
+          complete: false,
+          type:'01',
+          delivery_type: "01",
+          name: "한영관",
+          memo: "",
+          latitude: "37.541277",
+          longtitude: "127.047261",
+          children: [
+            {
+              id: 1,
+              address: "서울 성동구 뚝섬로 325-19",
+              complete: false,
+              delivery_type: "01",
+              name: "한영관",
+              memo: "",
+              latitude: "37.541277",
+              longtitude: "127.047261",
+            },
+            {
+              id: 2,
+              address: "서울 성동구 광나루로4가길 5 1층",
+              complete: true,
+              delivery_type: "03",
+              name: "천우희",
+              memo: "",
+              latitude: "37.541294",
+              longtitude: "127.047230",
+            },
+          ],
+        },
+        {
+          id: 3,
+          address: "서울 성동구 서울숲2길 16-8",
+          complete: false,
+          delivery_type: "01",
+          type:'01',
+          name: "서현진",
+          memo: "아기가 있어요 조용히 방문해주세요",
+          latitude: "37.5469895",
+          longtitude: "127.0380294",
+          children: [
+            {
+              id: 3,
+              address: "서울 성동구 서울숲2길 16-8",
+              complete: false,
+              delivery_type: "01",
+              name: "서현진",
+              memo: "아기가 있어요 조용히 방문해주세요",
+              latitude: "37.5469895",
+              longtitude: "127.0380294",
+            },
+          ],
+        },
+        {
+          id: 4,
+          address: "서울 성동구 서울숲2길 44-13 1층",
+          complete: false,
+          delivery_type: "02",
+          type:'01',
+          name: "박보영",
+          memo: "어쩌구 저쩌구",
+          latitude: "37.5460426",
+          longtitude: "127.041149",
+          children: [
+            {
+              id: 4,
+              address: "서울 성동구 서울숲2길 44-13 1층",
+              complete: false,
+              delivery_type: "02",
+              name: "박보영",
+              memo: "어쩌구 저쩌구",
+              latitude: "37.5460426",
+              longtitude: "127.041149",
+            },
+          ],
+        },
+        {
+          id: 5,
+          address: "서울 성동구 성수이로7가길 13 1층",
+          complete: true,
+          delivery_type: "03",
+          type:'02',
+          name: "한소희",
+          memo: "",
+          latitude: "37.5414092",
+          longtitude: "127.0528612",
+          children: [
+            {
+              id: 5,
+              address: "서울 성동구 성수이로7가길 13 1층",
+              complete: true,
+              delivery_type: "03",
+              name: "한소희",
+              memo: "",
+              latitude: "37.5414092",
+              longtitude: "127.0528612",
+            },
+          ],
+        },
+        {
+          id: 6,
+          address: "서울 성동구 서울숲2길 40 2층 비스트로성수",
+          complete: false,
+          delivery_type: "02",
+          type:'01',
+          name: "배수지",
+          memo: "현관 비밀번호 ****이에요",
+          latitude: "37.5463357",
+          longtitude: "127.0408389",
+          children: [
+            {
+              id: 6,
+              address: "서울 성동구 서울숲2길 40 2층 비스트로성수",
+              complete: false,
+              delivery_type: "02",
+              name: "배수지",
+              memo: "현관 비밀번호 ****이에요",
+              latitude: "37.5463357",
+              longtitude: "127.0408389",
+            },
+          ],
+        },
+        {
+          id: 7,
+          address: "서울 성동구 뚝섬로9길 20 2층",
+          complete: false,
+          delivery_type: "01",
+          type:'01',
+          name: "고윤정",
+          memo: "",
+          latitude: "37.5398975",
+          longtitude: "127.0540246",
+          children: [
+            {
+              id: 7,
+              address: "서울 성동구 뚝섬로9길 20 2층",
+              complete: false,
+              delivery_type: "01",
+              name: "고윤정",
+              memo: "",
+              latitude: "37.5398975",
+              longtitude: "127.0540246",
+            },
+          ],
+        },
+        {
+          id: 8,
+          address: "서울 성동구 서울숲4길 18-8 지층",
+          complete: true,
+          delivery_type: "03",
+          type:'02',
+          name: "혜리",
+          memo: "잘 놓고 가주세요~",
+          latitude: "37.5470041",
+          longtitude: "127.0404734",
+          children: [
+            {
+              id: 8,
+              address: "서울 성동구 서울숲4길 18-8 지층",
+              complete: true,
+              delivery_type: "03",
+              name: "혜리",
+              memo: "잘 놓고 가주세요~",
+              latitude: "37.5470041",
+              longtitude: "127.0404734",
+            },
+          ],
+        },
+        {
+          id: 9,
+          address: "서울 성동구 아차산로7길 7 동진빌딩 1층 성수족발",
+          complete: false,
+          delivery_type: "01",
+          type:'01',
+          name: "전소민",
+          memo: "요요요요",
+          latitude: "37.5460109",
+          longtitude: "127.052102",
+          children: [
+            {
+              id: 9,
+              address: "서울 성동구 아차산로7길 7 동진빌딩 1층 성수족발",
+              complete: false,
+              delivery_type: "01",
+              name: "전소민",
+              memo: "요요요요",
+              latitude: "37.5460109",
+              longtitude: "127.052102",
+            },
+          ],
+        },
+        {
+          id: 10,
+          address: "서울 성동구 서울숲4길 27",
+          complete: true,
+          delivery_type: "03",
+          type:'02',
+          name: "아이유",
+          memo: "",
+          latitude: "37.5470143",
+          longtitude: "127.0418555",
+          children: [
+            {
+              id: 10,
+              address: "서울 성동구 서울숲4길 27",
+              complete: true,
+              delivery_type: "03",
+              name: "아이유",
+              memo: "",
+              latitude: "37.5470143",
+              longtitude: "127.0418555",
+            },
+          ],
+        },
+      ];
 
       // 지도를 재설정할 범위정보를 가지고 있을 LatLngBounds 객체를 생성합니다
       var bounds = new kakao.maps.LatLngBounds();
 
-      document.addEventListener("message", function (data) {
-        const newData = JSON.parse(data.data);
+      // document.addEventListener("message", function (data) {
+      //   const newData = JSON.parse(data.data);
 
-        setMap(newData.todayList);
-        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
-        this.removeEventListener("message");
-      });
+      //   setMap(newData.todayList);
+      //   if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+      //   this.removeEventListener("message");
+      // });
 
-      window.addEventListener("message", function (data) {
-        const newData = JSON.parse(data.data);
-        setMap(newData.todayList);
-        if (newData.position?.latitude !== 0) myGeolocation(newData.position);
-        this.removeEventListener("message");
-      });
+      // window.addEventListener("message", function (data) {
+      //   const newData = JSON.parse(data.data);
+      //   setMap(newData.todayList);
+      //   if (newData.position?.latitude !== 0) myGeolocation(newData.position);
+      //   this.removeEventListener("message");
+      // });
 
-      // setMap(positions);
+      setMap(positions);
 
       // 배송기사 현재 위치 알아내는 함수실행
       // myGeolocation();

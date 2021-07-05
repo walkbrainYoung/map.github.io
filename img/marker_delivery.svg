@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="50px" height="55px" viewBox="0 0 50 55" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Combined Shape</title>
+    <defs>
+        <filter x="-33.8%" y="-29.7%" width="167.5%" height="159.5%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0.107888484   0 0 0 0 0.107888484   0 0 0 0 0.107888484  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="예원작업" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="배송기사앱_지도" transform="translate(-286.000000, -518.000000)" fill="#EE6252" stroke="#E35241">
+            <g id="Group-20" filter="url(#filter-1)" transform="translate(291.000000, 521.000000)">
+                <path d="M20,0.5 C25.3847763,0.5 30.2597763,2.68261184 33.7885822,6.21141777 C37.3173882,9.74022369 39.5,14.6152237 39.5,20 C39.5,24.6572395 37.8674029,28.9331955 35.1431286,32.2866148 C32.314676,35.7682712 28.3097524,38.255874 23.7335829,39.143048 L23.7335829,39.143048 L21.4615385,44.5923077 L18.3878554,39.4343378 C13.3069452,39.0187025 8.77770247,36.6549068 5.54788489,33.0916862 C2.41101933,29.6310128 0.5,25.0386688 0.5,20 C0.5,14.6152237 2.68261184,9.74022369 6.21141777,6.21141777 C9.74022369,2.68261184 14.6152237,0.5 20,0.5 Z" id="Combined-Shape"></path>
+            </g>
+        </g>
+    </g>
+</svg>
