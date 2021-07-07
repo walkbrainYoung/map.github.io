@@ -18,10 +18,10 @@
         text-align: center;
         font-size: 16px;
         color: white;
-        background: url("./img/marker_delivery.svg");
+        background: url("./../img/marker_delivery.svg");
       }
       .pickUpBox {
-        background: url("./img/marker_retrieve.svg");
+        background: url("./../img/marker_retrieve.svg");
       }
       
 
@@ -80,13 +80,17 @@
 
         this.removeEventListener("message");
       });
-      // setMap(positions);
+      
 
       // 배송기사 현재 위치 알아내는 함수실행
       // myGeolocation();
 
+      // const test = {delivery_id: 349 ,receipt_info:{road_full_address:"서울 성동구 뚝섬로 325-19"} }
+      
+      // setMap(test)
       //마커생성 함수
       function setMap(positions) {
+        console.log(positions)
         // 주소로 좌표를 검색합니다
         geocoder.addressSearch(
           positions.receipt_info.road_full_address,
