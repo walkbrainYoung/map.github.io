@@ -67,6 +67,8 @@
         padding: 0;
         font-size: 14px;
       }
+
+      
     </style>
   </head>
   <body style="margin: 0">
@@ -390,6 +392,8 @@
 
       document.addEventListener("message", function (data) {
         const newData = JSON.parse(data.data);
+
+        console.log(JSON.stringify(newData.todayList))
 
         setMap(newData.todayList);
         if (newData.position?.latitude !== 0) myGeolocation(newData.position);
