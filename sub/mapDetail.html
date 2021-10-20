@@ -95,9 +95,9 @@
         geocoder.addressSearch(
           positions.receipt_info.road_full_address,
           function (result, status) {
-            var content = `<p class=${
+            var content = `<a class=${
               positions?.delivery_id ? "deliveryBox" : "pickUpBox"
-            } ></p>`;
+            } href="javascript:void(0);" onClick="onClick()"></a>`;
             // 정상적으로 검색이 완료됐으면
             if (status === kakao.maps.services.Status.OK) {
               var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
@@ -115,6 +115,12 @@
           }
         );
       }
-    </script>
+  
+  // 클릭 이벤트 발생
+  function onClick() {
+        if (window.ReactNativeWebView)
+          window.ReactNativeWebView.postMessage('팝업');
+      }
+  </script>
   </body>
 </html>
